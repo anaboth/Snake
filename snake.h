@@ -3,6 +3,8 @@
 #include <vector>
 #include <SDL2/SDL.h>
 #include "utils.h"
+#include <iostream>
+#include <cstdio>
 
 class Snake {
 
@@ -20,6 +22,7 @@ public:
         body.push_back({0,0});
     }
     
+    int grow();
     int setSpeed(int, int);
     int update();
     int draw(SDL_Renderer*);

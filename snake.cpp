@@ -2,10 +2,15 @@
 
 int Snake::update() {
 
-    for(auto& i : body){
-        i.y += speedY;
-        i.x += speedX;
+    std::cout << body.size();
+
+    for(int i = body.size() - 1; i > 0; --i){
+        body[i].x = body[i - 1].x;
+        body[i].y = body[i - 1].y;
     }
+
+    body[0].x += speedX;
+    body[0].y += speedY;
 
     return 1;
 }
@@ -19,6 +24,11 @@ int Snake::draw(SDL_Renderer* renderer){
     }
 
     return 1;
+}
+
+int Snake::grow(){
+    point p = {0, 0};
+    body.push_back(p);
 }
 
 int Snake::setSpeed(int x, int y){
