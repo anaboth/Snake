@@ -21,30 +21,21 @@ int main(int argc, char const** argv){
 
     SDL_Event e;
 
-    int currTime = SDL_GetTicks();
-    int prevTime = currTime;
-    int delta;
-
-
     while(true){
-        prevTime = currTime;
-        currTime = SDL_GetTicks();
-        delta = currTime - prevTime;
 
         // Handle Inputs
-
         SDL_PollEvent(&e);
         if(e.type == SDL_QUIT)
             break;
         if(e.type == SDL_KEYDOWN){
             if(e.key.keysym.sym == SDLK_w)
-                snake.setSpeed(0, -1);
+                snake.setSpeed(0, -10);
             if(e.key.keysym.sym == SDLK_a)
-                snake.setSpeed(-1, 0);
+                snake.setSpeed(-10, 0);
             if(e.key.keysym.sym == SDLK_s)
-                snake.setSpeed(0, 1);
+                snake.setSpeed(0, 10);
             if(e.key.keysym.sym == SDLK_d)
-                snake.setSpeed(1, 0);
+                snake.setSpeed(10, 0);
             if(e.key.keysym.sym == SDLK_q)
                 break;
             if(e.key.keysym.sym == SDLK_SPACE)
@@ -59,10 +50,6 @@ int main(int argc, char const** argv){
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         snake.draw(renderer);
         SDL_RenderPresent(renderer);
-
-        // if (currTime - prevTime < 1000 / 5){
-        //     SDL_Delay(1000 / 5 - SDL_GetTicks() + prevTime);
-        // }
 
     }
 
