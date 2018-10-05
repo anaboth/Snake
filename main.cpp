@@ -3,13 +3,24 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
+bool colided(sf::Vector2f, sf::Vector2f);
+
 int main(int argc, char const** argv){
 
     const int w = 400;
     const int h = 400;
     Snake snake;
 
+    std::srand(NULL);
+
     sf::RenderWindow window(sf::VideoMode(w, h), "Snake Game");
+
+    sf::RectangleShape apple(sf::Vector2f(10, 10));
+
+    apple.setPosition(sf::Vector2f(((int)(std::rand() % 400) % 10) * 10, ((int)(std::rand() % 400) % 10) * 10));
+    apple.setFillColor(sf::Color::Red);
+
+    window.setFramerateLimit(10);
 
     while(window.isOpen()){
 
@@ -36,12 +47,29 @@ int main(int argc, char const** argv){
 
         // Update stuff
         snake.update();
+        if(colided(snake.getHead().getPosition(), apple.getPosition())){
+            snake.grow();
+            apple.setPosition(sf::Vector2f(((int)(std::rand() % 400) % 10) * 10, ((int)(std::rand() % 400) % 10) * 10));
+        }
+        
 
         // Graphical things
         window.clear(sf::Color::Cyan);
+        window.draw(apple);
         snake.draw(window);
         window.display();
     }
 
     return 0;
+}
+
+bool colided(sf::Vector2f v1, sf::Vector2f v2){
+    if (v1.x < v2.x + 10 &&
+        v1.x + 10 > v2.x &&
+        v1.y < v2.y + 10 &&
+        v1.y + 10 > v2.y) {
+            return true;
+    }
+
+    return false;
 }

@@ -18,7 +18,7 @@ private:
 public:
     Snake(){
         sf::RectangleShape temp(sf::Vector2f(w,h));
-        temp.setPosition(sf::Vector2f(0, 0));
+        temp.setPosition(sf::Vector2f(200, 200));
         temp.setFillColor(sf::Color::Black);
         body.push_back(temp);
     }
@@ -29,4 +29,5 @@ public:
     int setSpeed(int, int);
     int update();
     int draw(sf::RenderWindow&);
+    sf::RectangleShape getHead();
 };

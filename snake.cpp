@@ -28,7 +28,7 @@ int Snake::draw(sf::RenderWindow& window){
 
 int Snake::grow(){
     sf::RectangleShape temp(sf::Vector2f(w, h));
-    temp.setPosition(sf::Vector2f(0, 0));
+    temp.setPosition(body[0].getPosition());
     temp.setFillColor(sf::Color::Black);
     body.push_back(temp);
     return 0;
@@ -39,4 +39,8 @@ int Snake::setSpeed(int x, int y){
     speedY = y;
 
     return 0;
+}
+
+sf::RectangleShape Snake::getHead(){
+    return body[0];
 }
