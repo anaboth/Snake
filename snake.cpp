@@ -2,36 +2,35 @@
 
 int Snake::update() {
 
-    for(int i = body.size() - 1; i > 0; --i){
-        body[i]->x = body[i - 1]->x;
-        body[i]->y = body[i - 1]->y;
-    }
+    for(int i = body.size() - 1; i > 0; --i)
+        body[i].setPosition(body[i - 1].getPosition());
 
-    body[0]->x += speedX;
-    body[0]->y += speedY;
+    body[0].move(sf::Vector2f(speedX, speedY));
 
-    if(body[0]->x > 400) body[0]->x = 0;
-    if(body[0]->x < 0) body[0]->x = 400;
-    if(body[0]->y > 400) body[0]->y = 0;
-    if(body[0]->y < 0) body[0]->y = 400;
+    sf::Vector2f pos = body[0].getPosition();
+
+    if(pos.x > 400) body[0].setPosition(0, pos.y);
+    if(pos.x < 0)   body[0].setPosition(400, pos.y);
+    if(pos.y > 400) body[0].setPosition(pos.x, 0);
+    if(pos.y < 0)   body[0].setPosition(pos.x, 400);
 
     return 0;
 }
 
-int Snake::draw(SDL_Renderer* renderer){
+int Snake::draw(sf::RenderWindow& window){
 
     for(auto& i : body){
-        SDL_FillRect(surface, i, SDL_MapRGB(surface->format, 0, 0, 0));
-        SDL_RenderCopy(renderer, SDL_CreateTextureFromSurface(renderer, surface), NULL, i);
+        window.draw(i);
     }
 
     return 0;
 }
 
 int Snake::grow(){
-    body.push_back(new SDL_Rect);
-    body[body.size() - 1]->w = h;
-    body[body.size() - 1]->h = h;
+    sf::RectangleShape temp(sf::Vector2f(w, h));
+    temp.setPosition(sf::Vector2f(0, 0));
+    temp.setFillColor(sf::Color::Black);
+    body.push_back(temp);
     return 0;
 }
 
