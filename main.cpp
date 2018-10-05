@@ -3,7 +3,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-bool colided(sf::Vector2f, sf::Vector2f);
+bool collided(sf::Vector2f, sf::Vector2f);
 
 int main(int argc, char const** argv){
 
@@ -11,7 +11,7 @@ int main(int argc, char const** argv){
     const int h = 400;
     Snake snake;
 
-    std::srand(NULL);
+    std::srand(0);
 
     sf::RenderWindow window(sf::VideoMode(w, h), "Snake Game");
 
@@ -46,8 +46,9 @@ int main(int argc, char const** argv){
         }
 
         // Update stuff
-        snake.update();
-        if(colided(snake.getHead().getPosition(), apple.getPosition())){
+        if(snake.update())
+            window.close();
+        if(collided(snake.getHead().getPosition(), apple.getPosition())){
             snake.grow();
             apple.setPosition(sf::Vector2f(((int)(std::rand() % 400) % 10) * 10, ((int)(std::rand() % 400) % 10) * 10));
         }
@@ -63,7 +64,7 @@ int main(int argc, char const** argv){
     return 0;
 }
 
-bool colided(sf::Vector2f v1, sf::Vector2f v2){
+bool collided(sf::Vector2f v1, sf::Vector2f v2){
     if (v1.x < v2.x + 10 &&
         v1.x + 10 > v2.x &&
         v1.y < v2.y + 10 &&
