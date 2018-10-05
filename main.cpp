@@ -9,6 +9,7 @@ int main(int argc, char const** argv){
 
     const int w = 400;
     const int h = 400;
+    int frame = 10;
     Snake snake;
 
     std::srand(0);
@@ -20,7 +21,7 @@ int main(int argc, char const** argv){
     apple.setPosition(sf::Vector2f(((int)(std::rand() % 400) % 10) * 10, ((int)(std::rand() % 400) % 10) * 10));
     apple.setFillColor(sf::Color::Red);
 
-    window.setFramerateLimit(10);
+    window.setFramerateLimit(frame);
 
     while(window.isOpen()){
 
@@ -38,7 +39,7 @@ int main(int argc, char const** argv){
                     snake.setSpeed(0, 10);
                 if(e.key.code == sf::Keyboard::D)
                     snake.setSpeed(10, 0);
-                if(e.key.code == sf::Keyboard::Q)
+                if(e.key.code == sf::Keyboard::Escape)
                     window.close();
                 if(e.key.code == sf::Keyboard::Space)
                     snake.grow();
@@ -51,6 +52,7 @@ int main(int argc, char const** argv){
         if(collided(snake.getHead().getPosition(), apple.getPosition())){
             snake.grow();
             apple.setPosition(sf::Vector2f(((int)(std::rand() % 400) % 10) * 10, ((int)(std::rand() % 400) % 10) * 10));
+            window.setFramerateLimit(++frame);
         }
         
 

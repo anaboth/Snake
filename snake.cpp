@@ -9,10 +9,10 @@ int Snake::update() {
 
     sf::Vector2f pos = body[0].getPosition();
 
-    if(pos.x > 400) body[0].setPosition(0, pos.y);
-    if(pos.x < 0)   body[0].setPosition(400, pos.y);
-    if(pos.y > 400) body[0].setPosition(pos.x, 0);
-    if(pos.y < 0)   body[0].setPosition(pos.x, 400);
+    if(pos.x > 400) return 1;
+    if(pos.x < 0)   return 1;
+    if(pos.y > 400) return 1;
+    if(pos.y < 0)   return 1;
 
     for(int i = body.size() - 1; i > 0; --i)
         if(body[i].getPosition() == body[0].getPosition())
