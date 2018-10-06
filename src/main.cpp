@@ -41,8 +41,6 @@ int main(int argc, char const** argv){
                     snake.setSpeed(10, 0);
                 if(e.key.code == sf::Keyboard::Escape)
                     window.close();
-                if(e.key.code == sf::Keyboard::Space)
-                    snake.grow();
             }
         }
 
