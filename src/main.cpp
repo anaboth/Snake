@@ -11,10 +11,20 @@ int main(int argc, char const** argv){
     const int h = 400;
     int frame = 10;
     Snake snake;
+    int score = 0;
 
     std::srand(0);
+    sf::ContextSettings settings;
+    settings.antialiasingLevel = 8;
 
-    sf::RenderWindow window(sf::VideoMode(w, h), "Snake Game");
+    sf::Font font;
+    font.loadFromFile("BebasNeue-Regular.ttf");
+
+    sf::Text scoreText("Score: " + std::to_string(score), font);
+    scoreText.setCharacterSize(18);
+    scoreText.setFillColor(sf::Color::Red);
+
+    sf::RenderWindow window(sf::VideoMode(w, h), "Snake Game", sf::Style::Default, settings);
 
     sf::RectangleShape apple(sf::Vector2f(10, 10));
 
@@ -51,13 +61,16 @@ int main(int argc, char const** argv){
             snake.grow();
             apple.setPosition(sf::Vector2f(((int)(std::rand() % 400) % 10) * 10, ((int)(std::rand() % 400) % 10) * 10));
             window.setFramerateLimit(++frame);
+            score++;
         }
+        scoreText.setString("Score: " + std::to_string(score));
         
 
         // Graphical things
         window.clear(sf::Color::Cyan);
         window.draw(apple);
         snake.draw(window);
+        window.draw(scoreText);
         window.display();
     }
 
